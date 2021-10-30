@@ -14,6 +14,7 @@ class NodeHandler(ContentHandler):
         self.leg_distance = 0
         self.leg_up = 0
         self.leg_down = 0
+        self.leg_time = 0
         self.seconds = 0
         
     def startElement(self, name, attrs):
@@ -42,15 +43,18 @@ class NodeHandler(ContentHandler):
                     
         self.last_distance = self.this_distance
         self.last_altitude = self.this_altitude
+        self.leg_time += +1
         self.seconds += 1
-        if (self.seconds % 60) == 0:
-            outfile.write("%f\t%d\t%d\n"%(self.leg_distance, self.leg_up, self.leg_down))
+        
+        if (self.leg_distance >= 100):
+            outfile.write("%d\t%d\t%f\t%d\t%d\n"%(self.seconds, self.leg_time, self.leg_distance, self.leg_up, self.leg_down))
+            self.leg_time = 0
             self.leg_distance = 0
             self.leg_up = 0
             self.leg_down = 0
         
 handler = NodeHandler();
 outfile = open("%s.tsv"%sys.argv[1], "w")
-outfile.write("Distance\tUp\tDown\n")
+outfile.write("Total\tLap\tDistance\tUp\tDown\n")
 parse(sys.argv[1], handler);
 
