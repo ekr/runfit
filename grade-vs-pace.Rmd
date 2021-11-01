@@ -428,7 +428,11 @@ be on the climbs.
 
 ## Source Code
 
-I've posted a copy
+Although I've used [Rmarkdown](https://rmarkdown.rstudio.com/) to
+generate this post (minus some pre-post editing of the output),
+I've set it to omit most of the R source code to avoid cluttering
+everything up. You can find a copy of the code [here](https://github.com/ekr/runfit).
+
 
 
 
